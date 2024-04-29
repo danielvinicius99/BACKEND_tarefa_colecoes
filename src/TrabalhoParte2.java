@@ -13,12 +13,21 @@ public class TrabalhoParte2 {
         List<String> usuariosFemininos = new ArrayList<>();
 
         for (String usuario : arraySeparado) {
-            if (usuario.trim().endsWith("-M")) {
-                usuariosMasculinos.add(usuario.replace("-M", ""));
-            } else if (usuario.trim().endsWith("-F")) {
-                usuariosFemininos.add(usuario.replace("-F", ""));
+
+            String[] partes = usuario.trim().split("(?=-)");
+
+
+            if (partes.length > 1 && partes[1].equalsIgnoreCase("-M")) {
+                usuariosMasculinos.add(partes[0]);
+            } else if (partes.length > 1 && partes[1].equalsIgnoreCase("-F")) {
+                usuariosFemininos.add(partes[0]);
             }
         }
+
+
+        usuariosMasculinos.sort(String::compareToIgnoreCase);
+        usuariosFemininos.sort(String::compareToIgnoreCase);
+
 
         System.out.println("Lista de homens:");
         for (String homem : usuariosMasculinos) {
@@ -29,7 +38,5 @@ public class TrabalhoParte2 {
         for (String mulher : usuariosFemininos) {
             System.out.println(mulher);
         }
-
-
     }
 }
